@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from help_functions import get_meteogalicia_model,get_metar
+from help_functions import get_meteogalicia_model, get_metar
 import pickle
 import streamlit as st
 import plotly.express as px
@@ -8,7 +8,7 @@ from st_aggrid import AgGrid
 
 
 #open algorithm
-alg=pickle.load(open("vis_LEVX_d0.al","rb"))
+alg=pickle.load(open("algorithms/vis_LEVX_d0.al","rb"))
 
 #load raw meteorological model and get model variables
 meteo_model=get_meteogalicia_model(alg["coor"])
@@ -20,8 +20,8 @@ dist_map=px.scatter_mapbox(alg["coor"], hover_data=['distance'],lat='lat', lon='
 st.plotly_chart(dist_map)
 
 #get meatar today
-metar_dfr=get_metar("LEVX")
-AgGrid(metar_dfr)
+metar_df=get_metar("LEVX")
+AgGrid(metar_df)
 
 #select x _var
 model_x_var=meteo_model[:24][alg["x_var"]]
