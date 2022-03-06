@@ -26,7 +26,7 @@ AgGrid(metar_df)
 #select x _var
 model_x_var=meteo_model[:24][alg["x_var"]]
 
-#forecast machine learning  gust knots
+#forecast machine learning  horizontal visibility meters
 vis_ml=alg["ml_model"].predict(model_x_var)
 
 #show results
