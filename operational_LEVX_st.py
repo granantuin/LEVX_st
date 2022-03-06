@@ -6,7 +6,7 @@ import streamlit as st
 import plotly.express as px
 from st_aggrid import AgGrid
 
-
+st.set_page_config(page_title="LEVX Machine Learning",layout="wide")
 #open algorithm
 alg=pickle.load(open("algorithms/vis_LEVX_d0.al","rb"))
 
