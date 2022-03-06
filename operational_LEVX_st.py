@@ -14,7 +14,7 @@ alg=pickle.load(open("algorithms/vis_LEVX_d0.al","rb"))
 meteo_model=get_meteogalicia_model(alg["coor"])
 
 #map
-st.write("#### **Situation Vigo airport and WRF Meteogalicia model**") 
+st.write("#### **Vigo airport and WRF Meteogalicia model**") 
 px.set_mapbox_access_token("pk.eyJ1IjoiZ3JhbmFudHVpbiIsImEiOiJja3B4dGU4OTkwMTFmMm9ycnNhMjJvaGJqIn0.VWzx_PkD9A5cSUVsn_ijCA")
 dist_map=px.scatter_mapbox(alg["coor"], hover_data=['distance'],lat='lat', lon='lon',color='distance',
                            color_continuous_scale=px.colors.cyclical.IceFire,)
