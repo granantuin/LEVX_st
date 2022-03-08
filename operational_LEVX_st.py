@@ -29,7 +29,7 @@ AgGrid(metar_df)
 model_x_var=meteo_model[:24][alg["x_var"]]
 
 #forecast machine learning  horizontal visibility meters
-vis_ml=alg["ml_model"].predict(model_x_var)
+vis_ml=alg["ml_model"].predict_proba(model_x_var)[:,0]
 
 #open new algorithm
 alg=pickle.load(open("algorithms/prec_LEVX_d0.al","rb"))
