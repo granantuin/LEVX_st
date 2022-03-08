@@ -37,8 +37,8 @@ alg=pickle.load(open("algorithms/prec_LEVX_d0.al","rb"))
 #select x _var
 model_x_var=meteo_model[:24][alg["x_var"]]
 
-#forecast machine learning  horizontal visibility meters
-prec_ml=(pd.DataFrame(alg["ml_model"].predict_proba(model_x_var))).iloc[:,0].map("{:.0%}".format).values
+#forecast machine learning rain or drizzle
+prec_ml=(pd.DataFrame(alg["ml_model"].predict_proba(model_x_var))).iloc[:,1].map("{:.0%}".format).values
 
 #show results
 st.write("#### **Machine learning results forecast D0**")
@@ -62,7 +62,7 @@ alg=pickle.load(open("algorithms/prec_LEVX_d1.al","rb"))
 #select x _var
 model_x_var=meteo_model[24:48][alg["x_var"]]
 
-#forecast machine learning  horizontal visibility meters
+#forecast machine learning  rain or drizzle
 prec_ml=alg["ml_model"].predict(model_x_var)
 
 #show results
