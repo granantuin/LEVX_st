@@ -65,11 +65,21 @@ model_x_var=meteo_model[24:48][alg["x_var"]]
 #forecast machine learning  rain or drizzle
 prec_ml=alg["ml_model"].predict(model_x_var)
 
+#open new algorithm
+alg=pickle.load(open("algorithms/dir_LEVX_d1.al","rb"))
+
+#select x _var
+model_x_var=meteo_model[24:48][alg["x_var"]]
+
+#forecast machine learning  wind direction
+dir_ml=alg["ml_model"].predict(model_x_var)
+
 #show results
 st.write("#### **Machine learning results forecast D1**")
 df_for=pd.DataFrame({"time UTC":meteo_model[24:48].index,
                      "Minimun Horizontal visibility":vis_ml,
-                    "Precipitation":prec_ml})
+                    "Precipitation":prec_ml,
+                    "Wind direction":dir_ml})
 AgGrid(df_for)
 
 
