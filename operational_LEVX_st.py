@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 from help_functions import get_meteogalicia_model, get_metar
 import pickle
@@ -21,9 +20,8 @@ dist_map=px.scatter_mapbox(alg["coor"], hover_data=['distance'],lat='lat', lon='
 st.plotly_chart(dist_map)
 
 #get metar today
-st.write("#### **Vigo Metars**")
 metar_df=get_metar("LEVX")
-AgGrid(metar_df)
+
 
 #select x _var
 model_x_var=meteo_model[:24][alg["x_var"]]
@@ -51,11 +49,12 @@ dir_ml=alg["ml_model"].predict(model_x_var)
 
 #show results
 st.write("#### **Machine learning results forecast D0**")
-df_for=pd.DataFrame({"time UTC":meteo_model[:24].index,
+df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Horizontal visibility <=1000m (prob)":vis_ml,
                     "Precipitation (prob)":prec_ml,
                     "Wind direction":dir_ml})
-AgGrid(df_for)
+df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
+AgGrid(df_all.rename(columns={"index": "Time UTC"}))
 
 #Forecast D1
 alg=pickle.load(open("algorithms/vis_LEVX_d1.al","rb"))
@@ -86,11 +85,11 @@ dir_ml=alg["ml_model"].predict(model_x_var)
 
 #show results
 st.write("#### **Machine learning results forecast D1**")
-df_for=pd.DataFrame({"time UTC":meteo_model[24:48].index,
+df_for1=pd.DataFrame({"time UTC":meteo_model[24:48].index,
                      "Minimun Horizontal visibility":vis_ml,
                     "Precipitation":prec_ml,
                     "Wind direction":dir_ml})
-AgGrid(df_for)
+AgGrid(df_for1)
 
 
 
