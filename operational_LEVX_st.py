@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from help_functions import get_meteogalicia_model, get_metar
 import pickle
@@ -47,12 +48,23 @@ model_x_var=meteo_model[:24][alg["x_var"]]
 #forecast machine learning  wind direction
 dir_ml=alg["ml_model"].predict(model_x_var)
 
+#open new algorithm
+alg=pickle.load(open("algorithms/spd_LEVX_d0.al","rb"))
+
+#select x _var
+model_x_var=meteo_model[:24][alg["x_var"]]
+
+#forecast machine learning  wind direction
+spd_ml=alg["ml_model"].predict(model_x_var)
+
 #show results
 st.write("#### **Machine learning results forecast D0**")
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Horizontal visibility <=1000m (prob)":vis_ml,
                     "Precipitation (prob)":prec_ml,
-                    "Wind direction":dir_ml})
+                    "Wind direction":dir_ml,
+                    "Wind speed mean hour before(kt)":np.round(spd_ml*1.9438,1)})
+
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 AgGrid(df_all.rename(columns={"index": "Time UTC"}))
 
