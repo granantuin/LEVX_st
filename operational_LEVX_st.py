@@ -118,7 +118,7 @@ spd_ml=alg["ml_model"].predict(model_x_var)
 alg=pickle.load(open("algorithms/gust_LEVX_d1.al","rb"))
 
 #select x _var
-model_x_var=meteo_model[:24][alg["x_var"]]
+model_x_var=meteo_model[24:48][alg["x_var"]]
 
 #forecast machine learning  wind direction
 gust_ml=alg["ml_model"].predict(model_x_var)
