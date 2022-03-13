@@ -85,7 +85,7 @@ def get_table_download_link(df):
     writer.save()
     val = output.getvalue()
     b64 = base64.b64encode(val)  # val looks like b'...'
-    return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="report.xlsx">Download xls file</a>'
+    return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="report.xlsx">Download Excel file</a>'
 
 
 
