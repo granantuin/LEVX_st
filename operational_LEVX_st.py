@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from help_functions import get_meteogalicia_model, get_metar
+from help_functions import get_meteogalicia_model, get_metar, get_table_download_link
 import pickle
 import streamlit as st
 import plotly.express as px
@@ -78,6 +78,9 @@ df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
 
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 AgGrid(df_all.rename(columns={"index": "Time UTC"}))
+
+st.markdown(get_table_download_link(df_all.rename(columns={"index": "Time UTC"})),
+            unsafe_allow_html=True)
 
 #Forecast D1
 alg=pickle.load(open("algorithms/vis_LEVX_d1.al","rb"))
