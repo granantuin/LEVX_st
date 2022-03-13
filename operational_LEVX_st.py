@@ -77,10 +77,10 @@ df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Gust hour before":gust_ml})
 
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
-AgGrid(df_all.rename(columns={"index": "Time UTC"}))
+df_all=df_all.rename(columns={"index": "Time UTC"})
+AgGrid(df_all)
 
-st.markdown(get_table_download_link(df_all.rename(columns={"index": "Time UTC"})),
-            unsafe_allow_html=True)
+st.markdown(get_table_download_link(df_all),unsafe_allow_html=True)
 
 #Forecast D1
 alg=pickle.load(open("algorithms/vis_LEVX_d1.al","rb"))
