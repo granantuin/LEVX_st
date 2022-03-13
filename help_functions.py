@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from datetime import timedelta
+from io import BytesIO
 
 
 def get_meteogalicia_model(coorde):
