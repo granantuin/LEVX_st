@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from datetime import timedelta
 from io import BytesIO
-
+import base64
 
 def get_meteogalicia_model(coorde):
     """
