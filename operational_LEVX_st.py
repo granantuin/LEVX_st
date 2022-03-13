@@ -136,6 +136,7 @@ df_for1=pd.DataFrame({"time UTC":meteo_model[24:48].index,
                      "Wind speed mean hour before(kt)":np.round(spd_ml*1.9438,0),
                      "Gust hour before":gust_ml})
 AgGrid(df_for1)
+st.markdown(get_table_download_link(df_for1),unsafe_allow_html=True)
 
 
 
