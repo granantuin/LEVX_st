@@ -69,7 +69,22 @@ def get_metar(oaci):
      
      return df_metar  
 
-
+def get_table_download_link(df):
+    """
+    Parameters
+    ----------
+    df : pandas Dataframe
+    Returns
+    -------
+    Download xls file
+    """
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, sheet_name='Sheet1')
+    writer.save()
+    val = output.getvalue()
+    b64 = base64.b64encode(val)  # val looks like b'...'
+    return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="report.xlsx">Download xls file</a>'
 
 
 
