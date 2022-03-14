@@ -78,6 +78,8 @@ df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 df_all=df_all.rename(columns={"index": "Time UTC"})
 AgGrid(df_all)
 
+st.markdown(get_table_download_link(df_all),unsafe_allow_html=True)
+
 #show results prec visibility fog
 st.write("#### **Machine learning results forecast precipitation visibility BR/FG D0**")
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
@@ -87,7 +89,6 @@ df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 df_all=df_all.rename(columns={"index": "Time UTC"})
 AgGrid(df_all)
-
 
 st.markdown(get_table_download_link(df_all),unsafe_allow_html=True)
 
