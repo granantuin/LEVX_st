@@ -85,6 +85,8 @@ st.markdown(get_table_download_link(df_all),unsafe_allow_html=True)
 
 #show results prec visibility fog
 st.write("#### **Machine learning results forecast precipitation visibility BR/FG D0**")
+st.write("###### **Horizontal visibility min [T-1hour,T)**")
+st.write("###### **Precipitation on time T**")
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Horizontal visibility <=1000m (prob)":vis_ml,
                     "Precipitation (prob)":prec_ml})
@@ -142,6 +144,7 @@ gust_ml=alg["ml_model"].predict(model_x_var)
 
 #show results
 st.write("#### **Machine learning results forecast D1**")
+
 df_for1=pd.DataFrame({"time UTC":meteo_model[24:48].index,
                      "Minimun Horizontal visibility":vis_ml,
                     "Precipitation":prec_ml,
