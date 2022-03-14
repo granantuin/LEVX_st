@@ -69,10 +69,13 @@ gust_ml=alg["ml_model"].predict(model_x_var)
 
 #show results wind
 st.write("#### **Machine learning results forecast wind D0**")
+st.write("##### **Wind direction on time T**")
+st.write("##### **Wind speed mean interval [T-1hour,T)**")
+st.write("##### **Wind gust in interval [T-1hour,T)**")         
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Wind direction":dir_ml,
-                    "Wind speed mean hour before(kt)":np.round(spd_ml*1.9438,0),
-                     "Gust hour before":gust_ml})
+                    "Wind speed (kt)":np.round(spd_ml*1.9438,0),
+                     "Gust":gust_ml})
 
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 df_all=df_all.rename(columns={"index": "Time UTC"})
