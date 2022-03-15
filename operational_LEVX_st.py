@@ -68,10 +68,10 @@ model_x_var=meteo_model[:24][alg["x_var"]]
 gust_ml=alg["ml_model"].predict(model_x_var)
 
 #show results wind
-st.write("#### **Machine learning results forecast wind D0**")
+st.write("#### **Machine learning results wind forecast  D0**")
 st.write("###### **Wind direction on time T**")
 st.write("###### **Wind speed mean interval [T-1hour,T)**")
-st.write("###### **Wind gust in interval [T-1hour,T)**")         
+st.write("###### **Wind gust on time T**")         
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Wind direction":dir_ml,
                     "Wind speed (kt)":np.round(spd_ml*1.9438,0),
@@ -84,7 +84,7 @@ AgGrid(df_all)
 st.markdown(get_table_download_link(df_all),unsafe_allow_html=True)
 
 #show results prec visibility fog
-st.write("#### **Machine learning results forecast precipitation visibility BR/FG D0**")
+st.write("#### **Machine learning results precipitation visibility BR/FG forecast D0**")
 st.write("###### **Horizontal visibility min [T-1hour,T)**")
 st.write("###### **Precipitation on time T**")
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
