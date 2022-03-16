@@ -67,6 +67,16 @@ model_x_var=meteo_model[:24][alg["x_var"]]
 #forecast machine learning  wind direction
 gust_ml=alg["ml_model"].predict(model_x_var)
 
+#open new algorithm
+alg=pickle.load(open("algorithms/brfg_LEVX_d0.al","rb"))
+
+#select x _var
+model_x_var=meteo_model[:24][alg["x_var"]]
+
+#forecast machine learning  wind direction
+brfg_ml=(pd.DataFrame(alg["ml_model"].predict_proba(model_x_var))).iloc[:,1].map("{:.0%}".format).values
+
+
 #show results wind
 st.write("#### **Machine learning results wind forecast  D0**")
 st.write("###### **Wind direction on time T**")
@@ -87,9 +97,11 @@ st.markdown(get_table_download_link(df_all),unsafe_allow_html=True)
 st.write("#### **Machine learning results precipitation visibility BR/FG forecast D0**")
 st.write("###### **Horizontal visibility min [T-1hour,T)**")
 st.write("###### **Precipitation on time T**")
+st.write("###### **BR or Fog on time T**")
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Horizontal visibility <=1000m (prob)":vis_ml,
-                    "Precipitation (prob)":prec_ml})
+                    "Precipitation (prob)":prec_ml,
+                    "Fog or BR":brfg_ml})
 
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 df_all=df_all.rename(columns={"index": "Time UTC"})
