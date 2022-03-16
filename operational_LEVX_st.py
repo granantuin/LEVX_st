@@ -84,7 +84,7 @@ st.write("###### **Wind speed mean interval [T-1hour,T)**")
 st.write("###### **Wind gust on time T**")         
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Wind direction":dir_ml,
-                    "Wind speed (kt)":np.round(spd_ml*1.9438,0),
+                     "Wind speed (kt)":np.round(spd_ml*1.9438,0),
                      "Gust":gust_ml})
 
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
@@ -100,8 +100,8 @@ st.write("###### **Precipitation on time T**")
 st.write("###### **BR or Fog on time T**")
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Horizontal visibility <=1000m (prob)":vis_ml,
-                    "Precipitation (prob)":prec_ml,
-                    "Fog or BR":brfg_ml})
+                      "Precipitation (prob)":prec_ml,
+                      "Fog or BR":brfg_ml})
 
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 df_all=df_all.rename(columns={"index": "Time UTC"})
@@ -154,15 +154,25 @@ model_x_var=meteo_model[24:48][alg["x_var"]]
 #forecast machine learning  wind direction
 gust_ml=alg["ml_model"].predict(model_x_var)
 
+#open new algorithm
+alg=pickle.load(open("algorithms/brfg_LEVX_d1.al","rb"))
+
+#select x _var
+model_x_var=meteo_model[24:48][alg["x_var"]]
+
+#forecast machine learning  wind direction
+brfg_ml=alg["ml_model"].predict(model_x_var)
+
 #show results
 st.write("#### **Machine learning results forecast D1**")
 
 df_for1=pd.DataFrame({"time UTC":meteo_model[24:48].index,
-                     "Minimun Horizontal visibility":vis_ml,
-                    "Precipitation":prec_ml,
-                    "Wind direction":dir_ml,
-                     "Wind speed mean hour before(kt)":np.round(spd_ml*1.9438,0),
-                     "Gust hour before":gust_ml})
+                      "Minimun Horizontal visibility":vis_ml,
+                      "Precipitation":prec_ml,
+                      "Fog or BR":brfg_ml,
+                      "Wind direction":dir_ml,
+                      "Wind speed mean hour before(kt)":np.round(spd_ml*1.9438,0),
+                      "Gust hour before":gust_ml})
 AgGrid(df_for1)
 st.markdown(get_table_download_link(df_for1),unsafe_allow_html=True)
 
