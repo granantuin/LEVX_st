@@ -74,7 +74,7 @@ alg=pickle.load(open("algorithms/brfg_LEVX_d0.al","rb"))
 model_x_var=meteo_model[:24][alg["x_var"]]
 
 #forecast machine learning  wind direction
-brfg_ml=(pd.DataFrame(alg["ml_model"].predict_proba(model_x_var))).iloc[:,1].map("{:.0%}".format).values
+brfg_ml=alg["ml_model"].predict(model_x_var)
 
 
 #show results wind
