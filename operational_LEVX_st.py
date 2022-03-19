@@ -118,7 +118,7 @@ st.write("###### **Precipitation on time T**")
 st.write("###### **BR or Fog on time T**")
 st.write("###### **Cloud cover and cloud height on time T**")
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
-                     "Horizontal visibility <=1000m (prob)":vis_ml,
+                     "visibility <=1000m (prob)":vis_ml,
                      "Precipitation (prob)":prec_ml,
                      "Fog or BR":brfg_ml,
                      "Cloud cover":skyc1_ml,
