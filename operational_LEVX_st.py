@@ -197,7 +197,20 @@ df_for1=pd.DataFrame({"time UTC":meteo_model[24:48].index,
 AgGrid(df_for1)
 st.markdown(get_table_download_link(df_for1),unsafe_allow_html=True)
 
+#Forecast D2
 
+alg=pickle.load(open("algorithms/prec_LEVX_d2.al","rb"))
 
+#select x _var
+model_x_var=meteo_model[48:72][alg["x_var"]]
 
+#forecast machine learning  horizontal visibility meters
+prec_ml=alg["ml_model"].predict(model_x_var)
 
+#show results
+st.write("#### **Machine learning results forecast D2**")
+
+df_for2=pd.DataFrame({"time UTC":meteo_model[48:72].index,
+                      "Precipitation":prec_ml,})
+AgGrid(df_for2)
+st.markdown(get_table_download_link(df_for2),unsafe_allow_html=True)
