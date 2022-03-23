@@ -13,6 +13,8 @@ alg=pickle.load(open("algorithms/vis_LEVX_d0.al","rb"))
 #load raw meteorological model and get model variables
 meteo_model=get_meteogalicia_model(alg["coor"])
 
+
+#map Vigo airport
 if st.checkbox("model points map?"):
   #map
   st.write("#### **Vigo airport and WRF Meteogalicia model**") 
@@ -21,9 +23,19 @@ if st.checkbox("model points map?"):
                              color_continuous_scale=px.colors.cyclical.IceFire,)
   st.plotly_chart(dist_map)
 
+#download reports
+if st.checkbox("Download reports?"):
+  reports=[filename for filename in sorted(os.listdir("reports/")) if filename.endswith('.pdf')]
+  report_selected = st.selectbox("select report",(reports))
+  with open(report_selected, "rb") as pdf_file:
+    PDFbyte = pdf_file.read()
+  st.download_button(label="Download",
+                    data=PDFbyte,
+                    file_name="report.pdf",
+                    mime='application/octet-stream')
+  
 #get metar today
 metar_df=get_metar("LEVX")
-
 
 #select x _var
 model_x_var=meteo_model[:24][alg["x_var"]]
