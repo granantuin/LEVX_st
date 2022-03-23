@@ -236,3 +236,11 @@ df_for2=pd.DataFrame({"time UTC":meteo_model[48:72].index,
                      "Wind speed (kt)":np.round(spd_ml*1.9438,0)})
 AgGrid(df_for2)
 st.markdown(get_table_download_link(df_for2),unsafe_allow_html=True)
+
+#download quality report
+with open("reports/prec_LEVX.pdf", "rb") as pdf_file:
+    PDFbyte = pdf_file.read()
+st.download_button(label="Dowload precipitation report",
+                    data=PDFbyte,
+                    file_name="LEVX_Precipitation_report.pdf",
+                    mime='application/octet-stream')
