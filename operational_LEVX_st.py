@@ -28,7 +28,7 @@ if st.checkbox("model points map?"):
 if st.checkbox("Download reports?"):
   reports=[filename for filename in sorted(os.listdir("reports/")) if filename.endswith('.pdf')]
   report_selected = st.selectbox("select report",(reports))
-  with open(report_selected, "rb") as pdf_file:
+  with open(str(report_selected), "rb") as pdf_file:
     PDFbyte = pdf_file.read()
   st.download_button(label="Download",
                     data=PDFbyte,
