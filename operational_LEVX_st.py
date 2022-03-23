@@ -5,7 +5,6 @@ import pickle
 import streamlit as st
 import plotly.express as px
 from st_aggrid import AgGrid
-import os
 
 st.set_page_config(page_title="LEVX Machine Learning",layout="wide")
 #open algorithm
@@ -24,17 +23,7 @@ if st.checkbox("model points map?"):
                              color_continuous_scale=px.colors.cyclical.IceFire,)
   st.plotly_chart(dist_map)
 
-#download reports
-if st.checkbox("Download reports?"):
-  reports=[filename for filename in sorted(os.listdir("reports/")) if filename.endswith('.pdf')]
-  report_selected = st.selectbox("select report",(reports))
-  with open(str(report_selected), "rb") as pdf_file:
-    PDFbyte = pdf_file.read()
-  st.download_button(label="Download",
-                    data=PDFbyte,
-                    file_name="report.pdf",
-                    mime='application/octet-stream')
-  
+ 
 #get metar today
 metar_df=get_metar("LEVX")
 
