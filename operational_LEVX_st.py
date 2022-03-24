@@ -96,16 +96,24 @@ model_x_var=meteo_model[:24][alg["x_var"]]
 #forecast machine learning  wind direction
 skyl1_ml=alg["ml_model"].predict(model_x_var)
 
+#open new algorithm
+alg=pickle.load(open("algorithms/temp_LEVX_d0.al","rb"))
 
-#show results wind
+#select x _var
+model_x_var=meteo_model[:24][alg["x_var"]]
+
+#forecast machine learning  wind direction
+temp_ml=alg["ml_model"].predict(model_x_var)
+
+#show results wind and temperature
 st.write("#### **Machine learning results wind forecast  D0**")
-st.write("###### **Wind direction on time T**")
 st.write("###### **Wind speed mean interval [T-1hour,T)**")
-st.write("###### **Wind gust on time T**")         
+st.write("###### **Wind gust, direction and temperature on time T**")         
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Wind direction":dir_ml,
                      "Wind speed (kt)":np.round(spd_ml*1.9438,0),
-                     "Gust":gust_ml})
+                     "Gust":gust_ml},
+                    "Temperature C":temp_ml})
 
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 df_all=df_all.rename(columns={"index": "Time UTC"})
