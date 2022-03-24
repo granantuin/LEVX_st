@@ -106,14 +106,15 @@ model_x_var=meteo_model[:24][alg["x_var"]]
 temp_ml=alg["ml_model"].predict(model_x_var)
 
 #show results wind and temperature
-st.write("#### **Machine learning results wind forecast  D0**")
+st.write("#### **Results wind and temperature forecast  D0**")
 st.write("###### **Wind speed mean interval [T-1hour,T)**")
 st.write("###### **Wind gust, direction and temperature on time T**")         
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Wind direction":dir_ml,
                      "Wind speed (kt)":np.round(spd_ml*1.9438,0),
                      "Gust":gust_ml,
-                    "Temperature C":temp_ml})
+                    "Temperature ml":temp_ml,
+                     "Temperature WRF":model_x_var.temp4})
 
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 df_all=df_all.rename(columns={"index": "Time UTC"})
@@ -248,7 +249,13 @@ st.download_button(label="Dowload wind speed report",
                     data=PDFbyte,
                     file_name="LEVX_wind_speed_report.pdf",
                     mime='application/octet-stream')
-
+#download quality report
+with open("reports/temp_LEVX.pdf", "rb") as pdf_file:
+    PDFbyte = pdf_file.read()
+st.download_button(label="Dowload temperature report",
+                    data=PDFbyte,
+                    file_name="LEVX_temperature_report.pdf",
+                    mime='application/octet-stream')
 
 
 
