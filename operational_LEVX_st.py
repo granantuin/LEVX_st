@@ -114,7 +114,7 @@ df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "Wind speed (kt)":np.round(spd_ml*1.9438,0),
                      "Gust":gust_ml,
                      "Temperature ml":temp_ml,
-                     "Temperature WRF":round(model_x_var["temp4"]+273.16,0)})
+                     "Temperature WRF":round(model_x_var["temp4"]-273.16,0)})
 
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 df_all=df_all.rename(columns={"index": "Time UTC"})
