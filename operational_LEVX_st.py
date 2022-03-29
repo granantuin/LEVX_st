@@ -245,21 +245,21 @@ st.download_button(label="Dowload precipitation report",
 #download quality report
 with open("reports/spd_LEVX.pdf", "rb") as pdf_file:
     PDFbyte = pdf_file.read()
-st.download_button(label="Dowload wind speed report",
+st.download_button(label="Download wind speed report",
                     data=PDFbyte,
                     file_name="LEVX_wind_speed_report.pdf",
                     mime='application/octet-stream')
 #download quality report
 with open("reports/temp_LEVX.pdf", "rb") as pdf_file:
     PDFbyte = pdf_file.read()
-st.download_button(label="Dowload temperature report",
+st.download_button(label="Download temperature report",
                     data=PDFbyte,
                     file_name="LEVX_temperature_report.pdf",
                     mime='application/octet-stream')
 
 with open("reports/vis_LEVX.pdf", "rb") as pdf_file:
     PDFbyte = pdf_file.read()
-st.download_button(label="Dowload visibility report",
+st.download_button(label="Download visibility report",
                     data=PDFbyte,
                     file_name="LEVX_visibility_report.pdf",
                     mime='application/octet-stream')
