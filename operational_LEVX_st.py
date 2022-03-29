@@ -257,6 +257,11 @@ st.download_button(label="Dowload temperature report",
                     file_name="LEVX_temperature_report.pdf",
                     mime='application/octet-stream')
 
-
+with open("reports/vis_LEVX.pdf", "rb") as pdf_file:
+    PDFbyte = pdf_file.read()
+st.download_button(label="Dowload visibility report",
+                    data=PDFbyte,
+                    file_name="LEVX_visibility_report.pdf",
+                    mime='application/octet-stream')
 
 
