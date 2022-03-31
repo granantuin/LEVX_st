@@ -125,9 +125,8 @@ st.markdown(get_table_download_link(df_all),unsafe_allow_html=True)
 #show results prec visibility fog cloud cover
 st.write("#### **Machine learning results (precipitation, visibility, BR/FG, cloud low layer cover and height) forecast D0**")
 st.write("###### **Horizontal visibility min [T-1hour,T)**")
-st.write("###### **Precipitation on time T**")
-st.write("###### **BR or Fog on time T**")
-st.write("###### **Cloud cover and cloud height on time T**")
+st.write("###### **Precipitation, BR or FG, cloud cover and cloud height on time T**")
+
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
                      "visibility <=1000m (prob)":vis_ml,
                      "Precipitation (prob)":prec_ml,
