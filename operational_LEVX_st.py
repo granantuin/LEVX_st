@@ -263,4 +263,10 @@ st.download_button(label="Download visibility report",
                     file_name="LEVX_visibility_report.pdf",
                     mime='application/octet-stream')
 
+with open("reports/skyc1_LEVX.pdf", "rb") as pdf_file:
+    PDFbyte = pdf_file.read()
+st.download_button(label="Download visibility report",
+                    data=PDFbyte,
+                    file_name="LEVX_cloudcover1_report.pdf",
+                    mime='application/octet-stream')
 
