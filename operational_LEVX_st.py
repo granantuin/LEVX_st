@@ -25,7 +25,11 @@ if st.checkbox("model points map?"):
 
  
 #get metar today
-metar_df=get_metar("LEVX")
+try:
+  #metar_df=get_metar("LEVX")
+  metar_df=get_metar("LEEE")
+except:
+  metar_df = pd.DataFrame()
 
 #select x _var
 model_x_var=meteo_model[:24][alg["x_var"]]
