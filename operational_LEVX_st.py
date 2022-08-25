@@ -26,8 +26,7 @@ if st.checkbox("model points map?"):
  
 #get metar today
 try:
-  #metar_df=get_metar("LEVX")
-  metar_df=get_metar("LEEE")
+  metar_df=get_metar("LEVX")
 except:
   metar_df = pd.DataFrame()
 
