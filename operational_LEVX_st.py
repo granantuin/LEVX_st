@@ -13,17 +13,6 @@ alg=pickle.load(open("algorithms/vis_LEVX_d0.al","rb"))
 #load raw meteorological model and get model variables
 meteo_model=get_meteogalicia_model(alg["coor"])
 
-
-#map Vigo airport
-if st.checkbox("model points map?"):
-  #map
-  st.write("#### **Vigo airport and WRF Meteogalicia model**") 
-  px.set_mapbox_access_token("pk.eyJ1IjoiZ3JhbmFudHVpbiIsImEiOiJja3B4dGU4OTkwMTFmMm9ycnNhMjJvaGJqIn0.VWzx_PkD9A5cSUVsn_ijCA")
-  dist_map=px.scatter_mapbox(alg["coor"], hover_data=['distance'],lat='lat', lon='lon',color='distance',
-                             color_continuous_scale=px.colors.cyclical.IceFire,)
-  st.plotly_chart(dist_map)
-
- 
 #get metar today
 try:
   metar_df=get_metar("LEVX")
@@ -273,3 +262,11 @@ st.download_button(label="Download cloud cover report",
                     file_name="LEVX_cloudcover1_report.pdf",
                     mime='application/octet-stream')
 
+#map Vigo airport
+if st.checkbox("model points map?"):
+  #map
+  st.write("#### **Vigo airport and WRF Meteogalicia model**") 
+  px.set_mapbox_access_token("pk.eyJ1IjoiZ3JhbmFudHVpbiIsImEiOiJja3B4dGU4OTkwMTFmMm9ycnNhMjJvaGJqIn0.VWzx_PkD9A5cSUVsn_ijCA")
+  dist_map=px.scatter_mapbox(alg["coor"], hover_data=['distance'],lat='lat', lon='lon',color='distance',
+                             color_continuous_scale=px.colors.cyclical.IceFire,)
+  st.plotly_chart(dist_map)
