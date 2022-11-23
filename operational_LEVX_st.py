@@ -11,11 +11,11 @@ st.set_page_config(page_title="LEVX Machine Learning",layout="wide")
 alg=pickle.load(open("algorithms/vis_LEVX_d0.al","rb"))
 
 #load raw meteorological model and get model variables
-meteo_model=get_meteogalicia_model(alg["coor"])
+meteo_model,con = get_meteogalicia_model(alg["coor"])
 
 #get metar today
 try:
-  metar_df=get_metar("LEVX")
+  metar_df=get_metar("LEVX",con)
 except:
   metar_df = pd.DataFrame()
 
